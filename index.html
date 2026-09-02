@@ -1,10 +1,232 @@
-<!DOCTYPE html>
+import os
+from weasyprint import HTML
+
+html_content = """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajuda Idoso - O Maior Portal de Apoio e Acessibilidade</title>
+    <title>Projeto: Website Completo Ajuda Idoso</title>
     <style>
+        @page {
+            size: A4;
+            margin: 15mm 12mm;
+            background-color: #f8fafc;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 8pt;
+                color: #64748b;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #1e293b;
+            line-height: 1.5;
+            font-size: 10pt;
+        }
+
+        /* Header Banner */
+        .header-banner {
+            background-color: #0f766e;
+            color: #ffffff;
+            padding: 24px 20px;
+            margin: -15mm -12mm 20px -12mm;
+            border-bottom: 4px solid #14b8a6;
+        }
+
+        .header-banner h1 {
+            margin: 0 0 6px 0;
+            font-size: 20pt;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-banner p {
+            margin: 0;
+            font-size: 11pt;
+            color: #ccfbf1;
+        }
+
+        /* Section Styling */
+        h2 {
+            font-size: 13pt;
+            color: #0f766e;
+            border-left: 4px solid #0d9488;
+            padding-left: 10px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 11pt;
+            color: #334155;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* Code & Prompt Blocks */
+        .prompt-box {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-left: 4px solid #6366f1;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            font-size: 9.5pt;
+        }
+
+        .prompt-box header {
+            font-weight: bold;
+            color: #4338ca;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-size: 8pt;
+            letter-spacing: 0.5px;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 7.5pt;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            page-break-inside: avoid;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #e0e7ff;
+            color: #3730a3;
+            border-radius: 12px;
+            font-size: 8pt;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        /* Callout Cards */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 14px;
+            font-size: 9pt;
+        }
+
+        .table-custom th, .table-custom td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: #0f766e;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .table-custom tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #0f766e;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            font-size: 8pt;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-banner">
+        <h1>Documentação do Projeto: Ajuda Idoso Mega Portal</h1>
+        <p>Website Completo e Detalhado de Apoio à Pessoa Idosa com Tema Escuro/Claro & Alto Contraste</p>
+    </div>
+
+    <div class="card">
+        <h3>Visão Geral do Projeto Avançado</h3>
+        <p>Este documento apresenta a versão ultra completa do portal <strong>Ajuda Idoso</strong>, unificando HTML, CSS avançado e JavaScript interativo em um único arquivo de alta performance para publicação no <strong>GitHub Pages</strong>.</p>
+        <div>
+            <span class="badge">Tema Claro / Escuro / Alto Contraste</span>
+            <span class="badge">Leitor de Voz Web Speech API</span>
+            <span class="badge">Lembretes Interativos de Remédios</span>
+            <span class="badge">Botão SOS WhatsApp</span>
+            <span class="badge">Design Ultrachamativo</span>
+        </div>
+    </div>
+
+    <h2>1. Novas Funcionalidades Incorporadas</h2>
+    <ul>
+        <li><strong>Alternador de Temas:</strong> Suporte dinâmico aos temas <em>Claro (Suave)</em>, <em>Escuro (Dark Mode)</em> e <em>Alto Contraste Acessível</em>.</li>
+        <li><strong>Cores Vibração Máxima:</strong> Cores estrategicamente vibrantes (Amarelo Ouro, Vermelho Alerta, Azul Vivo e Verde Esperança) para dar visibilidade imediata às seções cruciais.</li>
+        <li><strong>Lembrete Interativo de Remédios:</strong> Permite adicionar o nome e o horário do medicamento para exibição na tela.</li>
+        <li><strong>Sintetizador de Voz (Ler em Voz Alta):</strong> Botão que lê os avisos principais do site em português para idosos com baixa visão.</li>
+        <li><strong>Rede de Emergência Direta:</strong> Chamada rápida para SAMU, Bombeiros, Polícia e Botão Direto para o WhatsApp de um familiar cadastrado.</li>
+        <li><strong>Atividades Cognitivas & Exercícios de Memória:</strong> Caixas coloridas e destacadas com jogos simples e dicas de saúde.</li>
+    </ul>
+
+    <h2>2. Registro do Prompt de Construção</h2>
+
+    <div class="prompt-box">
+        <header>Prompt Detalhado</header>
+        "Faça um site com o nome Ajuda Idoso com o máximo de detalhes possível, com tema Claro e Escuro para trocar, botões de acessibilidade, cores chamativas e escritas coloridas destacados para chamar atenção do idoso, contendo: emergência, lembrete de remédios, leitor de voz, formulário de ajuda e dicas de saúde. Tudo junto em um único arquivo HTML, CSS e JS pronto para o GitHub Pages."
+    </div>
+
+    <h3>Código Fonte Completo (index.html)</h3>
+
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ajuda Idoso - O Maior Portal de Apoio à Terceira Idade&lt;/title&gt;
+    &lt;style&gt;
         :root {
             --bg-body: #f4f6f8;
             --bg-card: #ffffff;
@@ -17,7 +239,7 @@
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
-        /* TEMA ESCURO */
+        /* Tema Escuro */
         body.dark-mode {
             --bg-body: #0f172a;
             --bg-card: #1e293b;
@@ -25,7 +247,7 @@
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
         }
 
-        /* TEMA ALTO CONTRASTE */
+        /* Tema Alto Contraste */
         body.high-contrast {
             --bg-body: #000000;
             --bg-card: #000000;
@@ -46,7 +268,7 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* Barra de Acessibilidade Fixa no Topo */
+        /* Barra de Acessibilidade Superior */
         .acc-bar {
             background-color: #1e1b4b;
             padding: 12px;
@@ -117,7 +339,7 @@
             gap: 10px;
         }
 
-        /* Cores Chamativas para Títulos */
+        /* Destaques Coloridos nas Seções */
         .title-emergency { color: #ef4444; }
         .title-remedy { color: #059669; }
         .title-health { color: #d97706; }
@@ -151,7 +373,7 @@
         .bg-policia { background-color: #1d4ed8; }
         .bg-whats { background-color: #16a34a; }
 
-        /* Lista de Remédios */
+        /* Lista de Remédios Interativa */
         .remedy-box {
             display: flex;
             gap: 10px;
@@ -186,7 +408,7 @@
             align-items: center;
         }
 
-        /* Caixas de Alerta */
+        /* Caixas Informativas e Alertas */
         .alert-box {
             background-color: #fef3c7;
             border: 4px solid #f59e0b;
@@ -198,7 +420,7 @@
             margin-bottom: 15px;
         }
 
-        /* Formulário de Contato */
+        /* Formulários */
         form label {
             display: block;
             font-size: 1.2rem;
@@ -228,115 +450,112 @@
             margin-top: 20px;
             cursor: pointer;
         }
-    </style>
-</head>
-<body id="body">
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body id="body"&gt;
 
-    <!-- Barra de Acessibilidade -->
-    <div class="acc-bar">
-        <button class="btn-acc btn-yellow" onclick="changeFontSize(0.1)">🔍 Aumentar Letra</button>
-        <button class="btn-acc btn-yellow" onclick="changeFontSize(-0.1)">🔎 Diminuir Letra</button>
-        <button class="btn-acc btn-dark" onclick="toggleTheme('dark')">🌙 Tema Escuro</button>
-        <button class="btn-acc btn-yellow" onclick="toggleTheme('light')">☀️ Tema Claro</button>
-        <button class="btn-acc btn-dark" onclick="toggleTheme('contrast')">◐ Alto Contraste</button>
-        <button class="btn-acc btn-voice" onclick="readPage()">🔊 Ouvir Página</button>
-    </div>
+    &lt;!-- Barra de Acessibilidade --&gt;
+    &lt;div class="acc-bar"&gt;
+        &lt;button class="btn-acc btn-yellow" onclick="changeFontSize(0.1)"&gt;🔍 Aumentar Letra&lt;/button&gt;
+        &lt;button class="btn-acc btn-yellow" onclick="changeFontSize(-0.1)"&gt;🔎 Diminuir Letra&lt;/button&gt;
+        &lt;button class="btn-acc btn-dark" onclick="toggleTheme('dark')"&gt;🌙 Tema Escuro&lt;/button&gt;
+        &lt;button class="btn-acc btn-yellow" onclick="toggleTheme('light')"&gt;☀️ Tema Claro&lt;/button&gt;
+        &lt;button class="btn-acc btn-dark" onclick="toggleTheme('contrast')"&gt;◐ Alto Contraste&lt;/button&gt;
+        &lt;button class="btn-acc btn-voice" onclick="readPage()"&gt;🔊 Ouvir Página&lt;/button&gt;
+    &lt;/div&gt;
 
-    <header>
-        <h1>AJUDA IDOSO</h1>
-        <p style="font-size: 1.5rem; font-weight: bold; margin-top: 10px; color: #ffffff;">
+    &lt;header&gt;
+        &lt;h1&gt;AJUDA IDOSO&lt;/h1&gt;
+        &lt;p style="font-size: 1.5rem; font-weight: bold; margin-top: 10px; color: #ffffff;"&gt;
             Seu Portal de Segurança, Saúde e Suporte Diário
-        </p>
-    </header>
+        &lt;/p&gt;
+    &lt;/header&gt;
 
-    <div class="container">
+    &lt;div class="container"&gt;
 
-        <!-- SEÇÃO 1: EMERGÊNCIA -->
-        <div class="card" style="border-color: #ef4444;">
-            <h2 class="title-section title-emergency">🚨 LIGAÇÃO RÁPIDA DE EMERGÊNCIA</h2>
-            <div class="alert-box">
+        &lt;!-- SEÇÃO 1: EMERGÊNCIA --&gt;
+        &lt;div class="card" style="border-color: #ef4444;"&gt;
+            &lt;h2 class="title-section title-emergency"&gt;🚨 LIGAÇÃO RÁPIDA DE EMERGÊNCIA&lt;/h2&gt;
+            &lt;div class="alert-box"&gt;
                 Clique em qualquer botão colorido abaixo para ligar imediatamente!
-            </div>
-            <div class="emergency-grid">
-                <a href="tel:192" class="btn-emergency bg-samu">🚑 SAMU - 192</a>
-                <a href="tel:193" class="btn-emergency bg-bombeiro">👨‍🚒 Bombeiros - 193</a>
-                <a href="tel:190" class="btn-emergency bg-policia">🚔 Polícia - 190</a>
-                <a href="https://wa.me/?text=Preciso%20de%20ajuda!" target="_blank" class="btn-emergency bg-whats">💬 SOS WhatsApp</a>
-            </div>
-        </div>
+            &lt;/div&gt;
+            &lt;div class="emergency-grid"&gt;
+                &lt;a href="tel:192" class="btn-emergency bg-samu"&gt;🚑 SAMU - 192&lt;/a&gt;
+                &lt;a href="tel:193" class="btn-emergency bg-bombeiro"&gt;👨‍🚒 Bombeiros - 193&lt;/a&gt;
+                &lt;a href="tel:190" class="btn-emergency bg-policia"&gt;🚔 Polícia - 190&lt;/a&gt;
+                &lt;a href="https://wa.me/?text=Preciso%20de%20ajuda!" target="_blank" class="btn-emergency bg-whats"&gt;💬 SOS WhatsApp&lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-        <!-- SEÇÃO 2: LEMBRETE DE REMÉDIOS -->
-        <div class="card" style="border-color: #059669;">
-            <h2 class="title-section title-remedy">💊 MEUS REMÉDIOS DO DIA</h2>
-            <p>Cadastre seus medicamentos abaixo para não esquecer os horários:</p>
-            <div class="remedy-box">
-                <input type="text" id="remedyName" placeholder="Nome do remédio (Ex: Dipirona)">
-                <input type="time" id="remedyTime" style="max-width: 150px;">
-                <button class="btn-acc btn-yellow" onclick="addRemedy()" style="background-color: #059669; color: white;">+ Adicionar</button>
-            </div>
-            <ul id="remedyList" class="remedy-list">
-                <li class="remedy-item"><span>💊 Remédio de Pressão - 08:00</span></li>
-            </ul>
-        </div>
+        &lt;!-- SEÇÃO 2: LEMBRETE DE REMÉDIOS --&gt;
+        &lt;div class="card" style="border-color: #059669;"&gt;
+            &lt;h2 class="title-section title-remedy"&gt;💊 MEUS REMÉDIOS DO DIA&lt;/h2&gt;
+            &lt;p&gt;Cadastre seus medicamentos abaixo para não esquecer os horários:&lt;/p&gt;
+            &lt;div class="remedy-box"&gt;
+                &lt;input type="text" id="remedyName" placeholder="Nome do remédio (Ex: Dipirona)"&gt;
+                &lt;input type="time" id="remedyTime" style="max-width: 150px;"&gt;
+                &lt;button class="btn-acc btn-yellow" onclick="addRemedy()" style="background-color: #059669; color: white;"&gt;+ Adicionar&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;ul id="remedyList" class="remedy-list"&gt;
+                &lt;li class="remedy-item"&gt;<span>💊 Remédio de Pressão - 08:00</span>&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
 
-        <!-- SEÇÃO 3: DICAS DE SAÚDE -->
-        <div class="card" style="border-color: #d97706;">
-            <h2 class="title-section title-health">💡 DICAS IMPORTANTES DE SAÚDE</h2>
-            <ul style="line-height: 2rem; font-weight: bold;">
-                <li style="color: #0d9488;">💧 Beba ao menos 6 copos de água por dia.</li>
-                <li style="color: #dc2626;">🛑 Evite tapetes soltos no corredor para não escorregar.</li>
-                <li style="color: #2563eb;">☀️ Tome 15 minutos de sol pela manhã.</li>
-            </ul>
-        </div>
+        &lt;!-- SEÇÃO 3: DICAS DE SAÚDE --&gt;
+        &lt;div class="card" style="border-color: #d97706;"&gt;
+            &lt;h2 class="title-section title-health"&gt;💡 DICAS IMPORTANTES DE SAÚDE&lt;/h2&gt;
+            &lt;ul style="line-height: 2rem; font-weight: bold;"&gt;
+                &lt;li style="color: #0d9488;"&gt;💧 Beba ao menos 6 copos de água por dia.&lt;/li&gt;
+                &lt;li style="color: #dc2626;"&gt;🛑 Evite tapetes soltos no corredor para não escorregar.&lt;/li&gt;
+                &lt;li style="color: #2563eb;"&gt;☀️ Tome 15 minutos de sol pela manhã.&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
 
-        <!-- SEÇÃO 4: EXERCÍCIO DA MENTE -->
-        <div class="card" style="border-color: #2563eb;">
-            <h2 class="title-section title-games">🧠 EXERCITE SUA MENTE</h2>
-            <p><strong>Qual é o resultado de 15 + 15?</strong></p>
-            <button class="btn-acc btn-yellow" onclick="checkAnswer(30)">30</button>
-            <button class="btn-acc btn-yellow" onclick="checkAnswer(25)">25</button>
-            <p id="gameFeedback" style="font-size: 1.3rem; font-weight: bold; margin-top: 10px;"></p>
-        </div>
+        &lt;!-- SEÇÃO 4: EXERCÍCIO DA MENTE --&gt;
+        &lt;div class="card" style="border-color: #2563eb;"&gt;
+            &lt;h2 class="title-section title-games"&gt;🧠 EXERCITE SUA MENTE&lt;/h2&gt;
+            &lt;p&gt;&lt;strong&gt;Qual é o resultado de 15 + 15?&lt;/strong&gt;&lt;/p&gt;
+            &lt;button class="btn-acc btn-yellow" onclick="checkAnswer(30)"&gt;30&lt;/button&gt;
+            &lt;button class="btn-acc btn-yellow" onclick="checkAnswer(25)"&gt;25&lt;/button&gt;
+            &lt;p id="gameFeedback" style="font-size: 1.3rem; font-weight: bold; margin-top: 10px;"&gt;&lt;/p&gt;
+        &lt;/div&gt;
 
-        <!-- SEÇÃO 5: FORMULÁRIO DE PEDIDO DE AJUDA -->
-        <div class="card" style="border-color: #9333ea;">
-            <h2 class="title-section title-form">🤝 PEDIR AJUDA VOLUNTÁRIA</h2>
-            <form id="contactForm" onsubmit="submitForm(event)">
-                <label for="nome">Seu Nome:</label>
-                <input type="text" id="nome" required placeholder="Digite seu nome completo">
+        &lt;!-- SEÇÃO 5: FORMULÁRIO DE PEDIDO DE AJUDA --&gt;
+        &lt;div class="card" style="border-color: #9333ea;"&gt;
+            &lt;h2 class="title-section title-form"&gt;🤝 PEDIR AJUDA VOLUNTÁRIA&lt;/h2&gt;
+            &lt;form id="contactForm" onsubmit="submitForm(event)"&gt;
+                &lt;label for="nome"&gt;Seu Nome:&lt;/label&gt;
+                &lt;input type="text" id="nome" required placeholder="Digite seu nome completo"&gt;
 
-                <label for="telefone">Seu Telefone/WhatsApp:</label>
-                <input type="tel" id="telefone" required placeholder="(00) 00000-0000">
+                &lt;label for="telefone"&gt;Seu Telefone/WhatsApp:&lt;/label&gt;
+                &lt;input type="tel" id="telefone" required placeholder="(00) 00000-0000"&gt;
 
-                <label for="pedido">Do que você precisa?</label>
-                <textarea id="pedido" rows="3" required placeholder="Ex: Preciso de companhia para ir à farmácia."></textarea>
+                &lt;label for="pedido"&gt;Do que você precisa?&lt;/label&gt;
+                &lt;textarea id="pedido" rows="3" required placeholder="Ex: Preciso de companhia para ir à farmácia."&gt;&lt;/textarea&gt;
 
-                <button type="submit" class="btn-submit">✉️ ENVIAR PEDIDO AGORA</button>
-            </form>
-            <div id="statusMsg" style="font-size: 1.4rem; font-weight: bold; color: #16a34a; margin-top: 15px;"></div>
-        </div>
+                &lt;button type="submit" class="btn-submit"&gt;✉️ ENVIAR PEDIDO AGORA&lt;/button&gt;
+            &lt;/form&gt;
+            &lt;div id="statusMsg" style="font-size: 1.4rem; font-weight: bold; color: #16a34a; margin-top: 15px;"&gt;&lt;/div&gt;
+        &lt;/div&gt;
 
-    </div>
+    &lt;/div&gt;
 
-    <script>
+    &lt;script&gt;
         let scale = 1.1;
 
-        // Aumentar/Diminuir Letra
         function changeFontSize(delta) {
             scale += delta;
-            if (scale < 0.9) scale = 0.9;
-            if (scale > 1.6) scale = 1.6;
+            if (scale &lt; 0.9) scale = 0.9;
+            if (scale &gt; 1.6) scale = 1.6;
             document.documentElement.style.setProperty('--font-scale', scale + 'rem');
         }
 
-        // Alternar Temas
         function toggleTheme(theme) {
             document.body.classList.remove('dark-mode', 'high-contrast');
             if (theme === 'dark') document.body.classList.add('dark-mode');
             if (theme === 'contrast') document.body.classList.add('high-contrast');
         }
 
-        // Adicionar Remédios
         function addRemedy() {
             const name = document.getElementById('remedyName').value;
             const time = document.getElementById('remedyTime').value;
@@ -350,7 +569,6 @@
             }
         }
 
-        // Resposta do Jogo
         function checkAnswer(val) {
             const feedback = document.getElementById('gameFeedback');
             if (val === 30) {
@@ -362,7 +580,6 @@
             }
         }
 
-        // Leitor de Voz para Idosos
         function readPage() {
             const text = "Bem-vindo ao Ajuda Idoso. Em caso de emergência, utilize os botões vermelhos do topo da página.";
             const utterance = new SpeechSynthesisUtterance(text);
@@ -370,13 +587,24 @@
             window.speechSynthesis.speak(utterance);
         }
 
-        // Simulação do Formulário
         function submitForm(e) {
             e.preventDefault();
             const nome = document.getElementById('nome').value;
             document.getElementById('statusMsg').innerText = `Obrigado ${nome}! Seu pedido foi registrado com sucesso.`;
             document.getElementById('contactForm').reset();
         }
-    </script>
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+    <h2>3. Resumo para Publicação no GitHub Pages</h2>
+    <p>Para postar no GitHub Pages, basta salvar este código como <code>index.html</code> em um repositório público e ativar a publicação em <strong>Settings > Pages</strong>.</p>
 </body>
 </html>
+"""
+
+with open("documento_ajuda_idoso_completo.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+HTML("documento_ajuda_idoso_completo.html").write_pdf("Projeto_Site_Ajuda_Idoso_Completo.pdf")
+print("PDF do Projeto Completo gerado com sucesso!")
